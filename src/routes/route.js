@@ -1,13 +1,22 @@
-const express = require("express");
+const express=require('express')
+const router=express.Router()
 
-const router = express.Router();
+const UserController=require("../Controller/uesrController")
+const {authentication, authorization} =require("../Middleware/middleware")
 
-const {userController} = require("../controllers");
 
-//const { userAuth } = require("../middlewares");
 
-// USER API'S
+router.post("/register",UserController.registerUser)
 
-router.post("/register", userController.registerUser);
+router.post("/login",UserController.loginUser)
 
-module.exports = router;
+router.get("/user/:userId/profile",authentication,authorization,UserController.getProfile)
+
+router.put("/user/:userId/profile",authentication,authorization, UserController.updateProfile)
+
+
+
+
+
+
+module.exports=router

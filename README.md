@@ -1,4 +1,4 @@
-# thorium
+# Project5-productCartGroup24#Thorium
 
 ## Project - Products Management
 
@@ -27,7 +27,7 @@
   email: {string, mandatory, valid email, unique},
   profileImage: {string, mandatory}, // s3 link
   phone: {string, mandatory, unique, valid Indian mobile number}, 
-  password: {number, mandatory, minLen 8, maxLen 15}, // encrypted password
+  password: {string, mandatory, minLen 8, maxLen 15}, // encrypted password
   address: {
     shipping: {
       street: {string, mandatory},
@@ -140,7 +140,7 @@
 }
 ```
 
-## PUT /user/:userId/profile (Authentication required)
+## PUT /user/:userId/profile (Authentication and Authorization required)
 - Allow an user to update their profile.
 - A user can update all the fields
 - Make sure that userId in url param and in token is same
@@ -475,8 +475,12 @@ Refer below sample
   totalItems: 2,
   totalQuantity: 3,
   cancellable: true,
-  status: 'pending'}
+  status: 'pending'
   createdAt: "2021-09-17T04:25:07.803Z",
   updatedAt: "2021-09-17T04:25:07.803Z",
 }
 ```
+
+
+
+

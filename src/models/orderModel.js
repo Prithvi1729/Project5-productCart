@@ -1,0 +1,34 @@
+const mongoose=require("mongoose")
+
+const ObjectId=mongoose.Types.ObjectId
+
+const oderSchema=new mongoose.Schema({
+
+
+
+    userId: {type:ObjectId, refs:"UserData", required:true},
+
+    items: [{
+      productId: {type:ObjectId, refs:"Product" , required:true},
+      quantity: {type:Number, required:true, min:1}
+    }],
+
+    totalPrice: {type:Number, required:true, comment: "Holds total price of all the items in the cart"},
+
+    totalItems: {type:Number, required:true, comment: "Holds total number of items in the cart"},
+
+    totalQuantity: {type:Number, required:true, comment: "Holds total number of items in the cart"},
+
+    cancellable: {type:Boolean, default: true},
+
+    status: {type:String, default: 'pending', enum:["pending", "completed", "cancled"]},
+
+    deletedAt: {type:Date}, 
+
+    isDeleted: {type:Boolean, default: false},
+    
+
+
+})
+
+module.exports=mongoose.model("Order",oderSchema)

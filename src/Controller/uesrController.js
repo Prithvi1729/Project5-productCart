@@ -1,36 +1,11 @@
 const userModel=require("../models/Usermodel")
 const validator = require("../validator.js")
 const jwt = require("jsonwebtoken")
+const aws = require("../aws")
 
 const bcrypt = require("bcrypt");
 
-const aws = require("aws-sdk");
 
-aws.config.update({
-  accessKeyId: "AKIAY3L35MCRVFM24Q7U",
-  secretAccessKey: "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",
-  region: "ap-south-1",
-});
-
-const uploadFile = async function (files) {
-  return new Promise(function (resolve, reject) {
-    let s3 = new aws.S3({ apiVersion: "2006-03-01" });
-
-    let uploadParams = {
-      ACL: "public-read",
-      Bucket: "classroom-training-bucket",
-      Key: "Group24/" + files.profileImage,
-      Body: files.buffer
-    };
-
-    s3.upload(uploadParams, function (err, data) {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(data.Location);
-    });
-  });
-};
 
 const registerUser = async (req, res) => {
   try {
@@ -154,7 +129,7 @@ const registerUser = async (req, res) => {
     }
 
     
-let profileImage = await uploadFile(files[0]);
+let profileImage = await aws.uploadFile(files[0]);
 
     if (!profileImage) {
       return res.status(400).send({ status: false, msg: "error in uloading the files" });
@@ -217,7 +192,7 @@ const loginUser = async function(req,res){
         }, 'Group24',{ expiresIn: 60 * 60 },{iat:Date.now()})
 
         res.header('x-api-key', token);
-        return res.status(200).send({ status: true, message: `Author login successfull`, data: { token } });
+        return res.status(200).send({ status: true, message: `Author login successfull`,  data: {userId:CheckingUser._id, token:token } });
     } catch (error) {
        return res.status(500).send({ status: false, message: error.message });
     }
@@ -253,14 +228,14 @@ try{
   let updatingdata = req.body
   let filedata = req.files
 
-  let profileImg = await uploadFile(filedata[0]);
+  let profileImg = await aws.uploadFile(filedata[0]);
 
   if (!profileImg) {
     return res.status(400).send({ status: false, msg: "error in uloading the files" });
   }
 
   const{firstname,lastname,email,profileImage,phone,password,address} = updatingdata
-
+   
 
   
   let updateone={ firstname,lastname,email,profileImage,phone,password,address}

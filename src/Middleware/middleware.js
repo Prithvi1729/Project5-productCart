@@ -1,11 +1,15 @@
 const jwt = require("jsonwebtoken")
 const authentication = function(req,res,next){
     try{
-        let token = req.headers["x-api-key"]
+        let token = req.headers["authorization"]
         if(!token)
-        return res.status(401).send({status: false, msg:"Token not present"})
+        return res.status(401).send({status: false, msg:"Token is not present"})
     
-        let decodedToken = jwt.verify(token,"Group24")
+        // let decodedToken = jwt.verify(token,"Group24")
+        
+
+        let bearerHeader = token && token.split(' ')[1];
+        let decodedToken =  jwt.verify(bearerHeader,"Group24", { ignoreExpiration: true })
         if(!decodedToken)
         return res.status(401).send({status:false,msg:"Token is invalid"})
     next()
@@ -18,11 +22,15 @@ const authentication = function(req,res,next){
 const authorization = function(req, res, next) {
     
     try{
-        let token = req.headers["x-api-key"]
+        let token = req.headers["authorization"]
         if(!token)
         return res.status(401).send({status: false, msg:"Token not present"})
     
-        let decodedToken = jwt.verify(token,"Group24")
+        // let decodedToken = jwt.verify(token,"Group24")
+
+        let bearerHeader = token && token.split(' ')[1];
+        let decodedToken =  jwt.verify(bearerHeader,"Group24", { ignoreExpiration: true })
+
         if(!decodedToken)
         return res.status(401).send({status:false,msg:"Token is invalid"})
     

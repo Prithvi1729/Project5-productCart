@@ -216,7 +216,7 @@ Send [form-data](https://developer.mozilla.org/en-US/docs/Web/API/FormData)
 - Returns all products in the collection that aren't deleted.
   - __Filters__
     - Size (The key for this filter will be 'size')
-    - Product name (The key for this filter will be 'name'). You should return all the products with name containing the substring recieved in this filter
+    - Product name (The key for this filter will be 'name'). You should return all the products with name (title)containing the substring recieved in this filter
     - Price : greater than or less than a specific value. The keys are 'priceGreaterThan' and 'priceLessThan'. 
     
 > **_NOTE:_** For price filter request could contain both or any one of the keys. For example the query in the request could look like { priceGreaterThan: 500, priceLessThan: 2000 } or just { priceLessThan: 1000 } )

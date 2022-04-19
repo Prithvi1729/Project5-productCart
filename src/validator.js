@@ -10,6 +10,9 @@ const pincodeRegex = /^[1-9][0-9]{5}$/;
 
 const validPassword = /^[a-zA-Z0-9!@#$%^&*]{8,15}$/;
 
+const availableSizes = ["S", "XS", "M", "X", "L", "XXL", "XL"]
+
+
 const validEmail = function (email) {
   return emailRegex.test(email);
 };
@@ -50,12 +53,12 @@ const validFile = function (files) {
 };
 
 const isValidSize = function (size) {
-  return systemConfig.sizeEnumArray.indexOf(size) !== -1;
+  return  availableSizes.indexOf(size) != -1;
 };
 
-const isValidStatus = function (status) {
-  return systemConfig.OrderStatusEnumArray.indexOf(status) !== -1;
-};
+// const isValidStatus = function (status) {
+//  return  availableSizes.enum.indexOf(status) != -1; 
+// };
 
 module.exports = {
   validEmail,
@@ -66,6 +69,5 @@ module.exports = {
   isValidRequestBody,
   isValidObjectId,
   validFile,
-  isValidSize,
-  isValidStatus,
+  isValidSize
 };

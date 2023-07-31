@@ -1,5 +1,3 @@
-# Project5-productCartGroup24#Thorium
-
 ## Project - Products Management
 
 ### Key points
